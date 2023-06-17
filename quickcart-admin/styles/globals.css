@@ -1,0 +1,15 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+h1 {
+    @apply text-blue-900 pb-1 text-xl
+}
+
+h2{
+    @apply text-gray-600 pb-1 text-lg
+}
+
+img{
+    max-height: 100%;
+}
