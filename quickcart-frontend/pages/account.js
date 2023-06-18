@@ -61,15 +61,19 @@ export default function AccountPage() {
 
   useEffect(() => {
     axios.get("/api/address").then((res) => {
-      const { name, email, city, postalCode, streetAddress, country } =
-        res.data;
-      setName(name);
-      setEmail(email);
-      setCity(city);
-      setPostalCode(postalCode);
-      setStreetAddress(streetAddress);
-      setCountry(country);
-      setIsLoadingAccountInfo(true);
+      if (res.data) {
+        const { name, email, city, postalCode, streetAddress, country } =
+          res.data;
+        setName(name);
+        setEmail(email);
+        setCity(city);
+        setPostalCode(postalCode);
+        setStreetAddress(streetAddress);
+        setCountry(country);
+        setIsLoadingAccountInfo(true);
+      } else {
+        setIsLoadingAccountInfo(true);
+      }
     });
     axios.get("/api/wishlist").then((res) => {
       if (res.data.length > 0) {
