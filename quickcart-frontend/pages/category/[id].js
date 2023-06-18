@@ -15,13 +15,20 @@ const CategoryHeader = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
+  padding: 20px 20px;
+  @media (max-width: 768px) {
+    display: grid;
+    grid-template-columns: 1fr;
+  }
 `;
 const FilterWrapper = styled.div`
   display: flex;
+  justify-content: space-between;
   gap: 15px;
   @media (max-width: 768px) {
     // Adjust the breakpoint as needed
-    padding-top: 10px;
+    max-width: 100%;
+    padding: 10px 0;
     gap: 5px;
     flex-direction: column;
   }
@@ -34,6 +41,7 @@ const Filter = styled.div`
   display: flex;
   gap: 5px;
   color: #444;
+  justify-content: space-between;
 
   select {
     background-color: inherit;
@@ -88,28 +96,40 @@ export default function CategoryPage({
     });
   }
 
+  function capitalize(name) {
+    return name.charAt(0).toUpperCase() + name.slice(1);
+  }
+
   return (
     <>
       <Header />
       <Center>
         <PaddingDiv>
           <CategoryHeader>
-            <Title>{category.name}</Title>
+            <div>
+              <Title>{category.name}</Title>
+            </div>
             <FilterWrapper>
               {category.properties.map((prop) => (
                 <Filter key={prop.name}>
-                  <span>{prop.name}</span>
-                  <select
-                    onChange={(event) =>
-                      handleFilterChange(prop.name, event.target.value)
-                    }
-                    value={filterValues.find((f) => f.name === prop.name).value}
-                  >
-                    <option value="all">All</option>
-                    {prop.values.map((val) => (
-                      <option key={val}>{val}</option>
-                    ))}
-                  </select>
+                  <div>
+                    <span>{capitalize(prop.name)}</span>
+                  </div>
+                  <div>
+                    <select
+                      onChange={(event) =>
+                        handleFilterChange(prop.name, event.target.value)
+                      }
+                      value={
+                        filterValues.find((f) => f.name === prop.name).value
+                      }
+                    >
+                      <option value="all">All</option>
+                      {prop.values.map((val) => (
+                        <option key={val}>{val}</option>
+                      ))}
+                    </select>
+                  </div>
                 </Filter>
               ))}
               <Filter>

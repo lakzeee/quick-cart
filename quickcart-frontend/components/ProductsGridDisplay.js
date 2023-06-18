@@ -20,7 +20,7 @@ export default function ProductsGridDisplay({
 }) {
   return (
     <Center>
-      <Title $morePadding>{title}</Title>
+      {title && <Title $morePadding>{title}</Title>}
       <ProductsGrid>
         {products?.length > 0 &&
           products.map((p, index) => (

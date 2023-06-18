@@ -1,5 +1,5 @@
 import Link from "next/link";
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
 import Center from "@/components/styled/Center";
 import { useContext, useState } from "react";
 import { CartContext } from "@/components/CartContext";
@@ -8,6 +8,15 @@ import { signIn, signOut, useSession } from "next-auth/react";
 import { Menu, MenuItem } from "@szhsin/react-menu";
 import "@szhsin/react-menu/dist/index.css";
 import "@szhsin/react-menu/dist/transitions/slide.css";
+
+const fadeAnimation = keyframes`
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+`;
 
 const StyledHeader = styled.header`
   background: #222;
@@ -52,11 +61,16 @@ const StyledNav = styled.nav`
   padding-left: 40px;
   background-color: #222;
   font-size: 2rem;
+  opacity: ${(props) => (props.mobileNavOpen ? 1 : 0)};
+  animation: ${(props) => (props.mobileNavOpen ? fadeAnimation : "none")} 0.3s
+    ease;
+  transition: opacity 0.3s ease;
   @media screen and (min-width: 512px) {
     display: flex;
     position: static;
     padding: 0;
     font-size: 1rem;
+    opacity: 1;
   }
 `;
 

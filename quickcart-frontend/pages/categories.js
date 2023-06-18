@@ -14,6 +14,10 @@ import { getServerSession } from "next-auth";
 import { authOption } from "@/pages/api/auth/[...nextauth]";
 import { WishedProduct } from "@/models/WishedProduct";
 
+const CategoryDiv = styled.div`
+  padding-top: 20px;
+`;
+
 const CategoryGrid = styled.div`
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -56,7 +60,7 @@ export default function categoriesPage({
       <Center>
         <PaddingDiv>
           {mainCategories?.map((cat) => (
-            <div key={cat.name}>
+            <CategoryDiv key={cat.name}>
               <TitleWrapper>
                 <Title $categoryPadding>{cat.name}</Title>
                 <div>
@@ -74,7 +78,7 @@ export default function categoriesPage({
                   </RevealWrapper>
                 ))}
               </CategoryGrid>
-            </div>
+            </CategoryDiv>
           ))}
         </PaddingDiv>
       </Center>
