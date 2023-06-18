@@ -14,15 +14,16 @@ import axios from "axios";
 import ReviewBox from "@/components/ReviewBox";
 import Title from "@/components/styled/Title";
 import { Review } from "@/models/Review";
+import { RevealWrapper } from "next-reveal";
 
 const ProductPageColWrapper = styled.div`
   display: grid;
   grid-template-columns: 1fr;
-  gap: 40px;
   margin-top: 40px;
   padding-top: 60px;
   @media screen and (min-width: 512px) {
     grid-template-columns: 1fr 1.2fr;
+    gap: 40px;
   }
 `;
 const PriceRow = styled.div`
@@ -30,7 +31,6 @@ const PriceRow = styled.div`
   align-items: center;
   justify-content: space-between;
   margin-top: auto;
-  padding-bottom: 60px;
   @media screen and (min-width: 512px) {
     padding-bottom: 0;
   }
@@ -47,7 +47,10 @@ const ProductDetailsBox = styled.div`
 `;
 
 const CommentBox = styled.div`
-  margin-top: 48px;
+  margin-top: 0;
+  @media screen and (min-width: 512px) {
+    margin-top: 48px;
+  }
 `;
 const CommentColumns = styled.div`
   display: grid;
@@ -100,34 +103,43 @@ export default function ProductPage({ product, reviews }) {
       <Header />
       <Center>
         <ProductPageColWrapper>
-          <Box>
-            <ProductImages images={product.images} />
-          </Box>
-          <ProductDetailsBox>
-            <h2>{product.name}</h2>
-            <p>{product.description}</p>
-            <PriceRow>
-              <Price>${product.price}</Price>
-              <Button $primary onClick={handleButtonOnClick}>
-                <CartIcon />
-                Add To Cart
-              </Button>
-            </PriceRow>
-          </ProductDetailsBox>
+          <RevealWrapper delay={0}>
+            <Box>
+              <ProductImages images={product.images} />
+            </Box>
+          </RevealWrapper>
+          <RevealWrapper origin={"right"} delay={10}>
+            <ProductDetailsBox>
+              <h2>{product.name}</h2>
+              <p>{product.description}</p>
+              <PriceRow>
+                <Price>${product.price}</Price>
+                <Button $primary onClick={handleButtonOnClick}>
+                  <CartIcon />
+                  Add To Cart
+                </Button>
+              </PriceRow>
+            </ProductDetailsBox>
+          </RevealWrapper>
         </ProductPageColWrapper>
         <CommentBox>
-          <h3>Reviews</h3>
+          {reviews.length > 0 ? <h3>Reviews</h3> : <h3>No review yet</h3>}
           <CommentColumns>
             {reviews.length > 0 &&
-              reviews.map((r) => (
-                <ReviewBox
+              reviews.map((r, idx) => (
+                <RevealWrapper
                   key={r._id}
-                  userEmail={maskEmail(r.userEmail)}
-                  title={r.title}
-                  content={r.content}
-                  rating={r.rating}
-                  createdAt={r.createdAt}
-                />
+                  delay={10 + idx * 40}
+                  origin={"left"}
+                >
+                  <ReviewBox
+                    userEmail={maskEmail(r.userEmail)}
+                    title={r.title}
+                    content={r.content}
+                    rating={r.rating}
+                    createdAt={r.createdAt}
+                  />
+                </RevealWrapper>
               ))}
           </CommentColumns>
         </CommentBox>
