@@ -28,9 +28,10 @@ const SearchInputWrapper = styled.div`
   display: flex;
   position: sticky;
   z-index: 99;
-  top: 90px;
   align-items: center;
-  padding-bottom: 30px;
+  padding-bottom: 36px;
+  top: 80px;
+  margin-top: 40px;
 `;
 
 const LoaderWrapper = styled.div`
