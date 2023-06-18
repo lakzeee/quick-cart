@@ -17,7 +17,7 @@ export function CartIcon() {
   );
 }
 
-export function MenuIcon({ className = "w-6 h-6" }) {
+export function MenuIcon() {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -25,7 +25,7 @@ export function MenuIcon({ className = "w-6 h-6" }) {
       viewBox="0 0 24 24"
       strokeWidth={1.5}
       stroke="currentColor"
-      className={className}
+      className={"w-6 h-6"}
     >
       <path
         strokeLinecap="round"
